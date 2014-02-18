@@ -6,10 +6,18 @@
   padding-bottom: 3px;
 }
 
+.game-row {
+  width: 100%;
+  display: block;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .game-block {
   float: left;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   display: block;
   overflow: hidden;
   background: white;
@@ -19,10 +27,15 @@
   margin: 2px;
   text-align: center;
   overflow: hidden;
-  display: table-cell;
+}
+
+.game-block-blank {
+  background: green;
+  border: none;
 }
 
 .game-letter {
   vertical-align: middle;
-  line-height: 6em;
+  font-size: 400%;
+  line-height: 1.5em;
 }

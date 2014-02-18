@@ -1,21 +1,8 @@
 extends layout
 
 block content
-  div.container
+  div.container-fluid
     div.row
       div.col-md-12
         div.row
-          div.col-md-12.gameboard
-            -var test = data
-            -console.log("From Web App")
-            -console.log(test)
-            for r in data
-              -console.log(r)
-              .game-row
-                each c in r
-                  -console.log(c)
-                  .game-block 
-                    if c == '#'
-                      p.game-letter &nbsp;
-                    else
-                      p.game-letter #{c}
+          div#view(ng-view)

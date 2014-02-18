@@ -6,7 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var wof = require('./routes/wof');
-var user = require('./routes/user');
+var api = require('./routes/api');
 var http = require('http');
 var path = require('path');
 
@@ -33,8 +33,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
 app.get('/main', wof.index);
+app.get('/ang/:name', wof.angular);
+app.get('/api/puzzle', api.puzzle);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

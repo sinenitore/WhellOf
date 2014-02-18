@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.col-md-12
+        div.row
+          div.col-md-12.gameboard
+            -var test = data
+            -console.log("From Web App")
+            -console.log(test)
+            for r in data
+              -console.log(r)
+              .game-row
+                each c in r
+                  -console.log(c)
+                    if c == '#'
+                      .game-block.game-block-blank
+                        p.game-letter &nbsp;
+                    else
+                      .game-block
+                        p.game-letter #{c}
+        div.row
+          div.col-md-12.gameboard
+            div#view(ng-view)
+              div.game-row(ng-repeat="row in puzzle")
+                div.game-block(ng-repeat="ch in row")
+

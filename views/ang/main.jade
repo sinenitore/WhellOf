@@ -1,0 +1,5 @@
+div.col-md-12.gameboard
+  div.game-row(ng-repeat="row in puzzle")
+    div.game-block(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'===' ') ? 'game-block-blank' : ''")
+      p.game-letter{{ch}}
+

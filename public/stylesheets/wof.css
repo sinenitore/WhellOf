@@ -1,0 +1,28 @@
+.gameboard {
+  width: 100%;
+  background-color: green;
+  display: table;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.game-block {
+  float: left;
+  width: 100px;
+  height: 100px;
+  display: block;
+  overflow: hidden;
+  background: white;
+  color: black;
+  border: solid;
+  border-width: 2px;
+  margin: 2px;
+  text-align: center;
+  overflow: hidden;
+  display: table-cell;
+}
+
+.game-letter {
+  vertical-align: middle;
+  line-height: 6em;
+}

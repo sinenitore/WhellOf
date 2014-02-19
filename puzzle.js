@@ -1,14 +1,7 @@
 
-/*
- * GET home page.
- */
-//var wof = require('wof')
-
-var puzzle = require('./puzzle')
-
-exports.puzzle = function(req, res){
+exports.build_matrix = function(str){
   function build_rows(pArray){
-    pz = {row0: ''} 
+    pz = {row0: ''}
     var row_count = 0
     console.log("Before looping row_count: " + row_count)
     for (var i = 0; i < pArray.length; i++){
@@ -43,26 +36,3 @@ exports.puzzle = function(req, res){
   //res.render('main', {data: puzzle});
   res.json(puzzle)
 };
-
-exports.guess = function(req, res){
-  function find_all(str, searchStr){
-    var StartIndex =0, searchStrLen = searchStr.length
-    var index, indices = []
-    str = str.toLowerCase()
-    searchStr = searchStr.toLowerCase()
-    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
-      indices.push(index)
-      startIndex = index + searchStrLen;
-    }
-    return indices;
-  }
-  var guessed = req.param.guessed
-  hit = {match: false,
-         loc: []}
-  for (row in puzzle){
-    var match = find_all(row, guessed)
-    if (match.length > 0){
-      hit.loc.concat(match)
-    }
-  }
-}

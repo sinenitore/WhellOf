@@ -3,12 +3,18 @@
  * Module dependencies.
  */
 
+console.log('[' + new Data().toUTCString() + ']')
 var express = require('express');
 var routes = require('./routes');
 var wof = require('./routes/wof');
 var api = require('./routes/api');
 var http = require('http');
 var path = require('path');
+var puzzle = require('./puzzle.js');
+
+pText = puzzle.get_puzzle_text();
+pMatrix = puzzle.build_puzzle_matrix(pText);
+bMatrix = puzzle.build_board_matrix(pMatrix);
 
 var app = express();
 
@@ -31,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+console.log('[' + new Data().toUTCString() + ']')
 
 app.get('/', routes.index);
 app.get('/main', wof.index);

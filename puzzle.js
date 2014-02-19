@@ -1,5 +1,4 @@
-
-exports.build_matrix = function(str){
+module.exports.build_puzzle_matrix = function(str){
   function build_rows(pArray){
     pz = {row0: ''}
     var row_count = 0
@@ -22,17 +21,39 @@ exports.build_matrix = function(str){
     pz['row' + row_count] = pz['row' + row_count].trim()
     return pz
   }
+  console.log(str)
+  var puzzle = build_rows(str.split(' '))
+  console.log(puzzle)
+  //res.render('main', {data: puzzle});
+  return puzzle
+};
+
+module.exports.build_board_matrix = function(pMatrix){
+  var row_count = 0
+  bMatrix = {row0: ''}
+  for (row in pMatrix) {
+    for (var i = 0; i < row.length; i++){
+      if (row[i] === ' '){
+        bMatrix['row' + row_count] += '0'
+      } else {
+        bMatrix['row' + row_count= += '1'
+      }
+    }
+  }
+  console.log(bMatrix)
+  return bMatrix
+}
+
+module.exports.get_puzzle_text = function(filePath){
   console.log('API Puzzle function.')
   console.log(__dirname)
   //solutions = wof.gen_puzzle()
   var fs = require('fs');
   var path = require('path');
-  var filePath = path.resolve('puzzles', 'puzzle.txt')
+  if (filepath === 'undefined'){
+    var filePath = path.resolve('puzzles', 'puzzle.txt')
+  }
   var bufferString = fs.readFileSync(filePath)
-  var puzzleText = bufferString.toString('UTF-8')
-  console.log(puzzleText)
-  var puzzle = build_rows(puzzleText.split(' '))
-  console.log(puzzle)
-  //res.render('main', {data: puzzle});
-  res.json(puzzle)
+  return bufferString.toString('UTF-8')
 };
+

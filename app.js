@@ -3,14 +3,14 @@
  * Module dependencies.
  */
 
-console.log('[' + new Data().toUTCString() + ']')
+//console.log('[' + new Data().toUTCString() + ']')
 var express = require('express');
 var routes = require('./routes');
 var wof = require('./routes/wof');
 var api = require('./routes/api');
 var http = require('http');
 var path = require('path');
-var puzzle = require('./puzzle.js');
+var puzzle = require('./models/puzzle.js');
 
 pText = puzzle.get_puzzle_text();
 pMatrix = puzzle.build_puzzle_matrix(pText);

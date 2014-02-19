@@ -13,8 +13,14 @@ var path = require('path');
 var puzzle = require('./models/puzzle.js');
 
 pText = puzzle.get_puzzle_text();
+console.log("--- Returned Puzzle Text ---")
+console.log(pText)
 pMatrix = puzzle.build_puzzle_matrix(pText);
+console.log("--- Returned Puzzle Matrix ---")
+console.log(pMatrix)
 bMatrix = puzzle.build_board_matrix(pMatrix);
+console.log("--- Returned Board Matrix ---")
+console.log(bMatrix)
 
 var app = express();
 
@@ -37,7 +43,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-console.log('[' + new Data().toUTCString() + ']')
 
 app.get('/', routes.index);
 app.get('/main', wof.index);

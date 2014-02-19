@@ -4,9 +4,6 @@ module.exports.build_puzzle_matrix = function(str){
     var row_count = 0
     console.log("Before looping row_count: " + row_count)
     for (var i = 0; i < pArray.length; i++){
-      console.log('Current Count: ' + i)
-      console.log('Current Word: ' + pArray[i])
-      console.log(pz['row' + row_count].length + pArray[i].length)
       if (pz['row' + row_count].length + pArray[i].length > 15) {
         pz['row' + row_count] = pz['row' + row_count].trim()
         row_count++
@@ -30,17 +27,18 @@ module.exports.build_puzzle_matrix = function(str){
 
 module.exports.build_board_matrix = function(pMatrix){
   var row_count = 0
-  bMatrix = {row0: ''}
+  bMatrix = new Object()
   for (row in pMatrix) {
-    for (var i = 0; i < row.length; i++){
-      if (row[i] === ' '){
+    bMatrix['row' + row_count] = ''
+    for (var i = 0; i < pMatrix[row].length; i++){
+      if (pMatrix[row][i] === ' '){
         bMatrix['row' + row_count] += '0'
       } else {
-        bMatrix['row' + row_count= += '1'
+        bMatrix['row' + row_count] += '1'
       }
     }
+    row_count++
   }
-  console.log(bMatrix)
   return bMatrix
 }
 
@@ -50,10 +48,14 @@ module.exports.get_puzzle_text = function(filePath){
   //solutions = wof.gen_puzzle()
   var fs = require('fs');
   var path = require('path');
-  if (filepath === 'undefined'){
+  if (typeof filePath === undefined){
+    console.log("File Path is undeifined.")
     var filePath = path.resolve('puzzles', 'puzzle.txt')
+    console.log(filePath)
   }
+  var filePath = path.resolve('puzzles', 'puzzle.txt')
   var bufferString = fs.readFileSync(filePath)
+  console.log(filePath)
   return bufferString.toString('UTF-8')
 };
 

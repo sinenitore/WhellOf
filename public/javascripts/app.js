@@ -1,26 +1,39 @@
-var wof = angular.module('wof', ['ngRoute']).config(function($routeProvider) {
-  $routeProvider.when('/', {
-    templateUrl: '/ang/main',
-    controller: 'BoardController'
-  })
-  $routeProvider.otherwise( { redirectTo: '/' });
-});
-wof.controller('MainController', function() {
-
-});
-
-wof.controller('BoardController', function($scope, $http, $location) {
-  $scope.revealedFn = function(letter){
-    if ($scope.guessed.indexOf(letter) > -1){
-      return true
-    }
-  }
-
-  $http.get('api/board').
-    success(function(data, status, headers, config) {
-      $scope.puzzle = data;
-      $scope.alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+var wof = angular.module('wof', ['ngRoute', 'ngAnimate']).config(function($routeProvider) {
+  $routeProvider.
+    when('/', {
+      templateUrl: '/ang/main',
+      controller: 'MainController'
+    }).
+    when('/puzzle', {
+      templateUrl: '/ang/puzzle',
+      controller: 'PuzzleController'
+    }).
+    otherwise({
+      redirectTo: '/'
     });
+});
+
+
+wof.controller('MainController', function($scope, $location, PuzzleSvc) {
+  $scope.puzzleTextSubmit = function(str) {
+    console.log(str)
+    PuzzleSvc.setPuzzleText(str)
+    console.log($location.path())
+    $location.path('/puzzle')
+    console.log($location.path())
+  }
+});
+
+wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc) {
+  var pText = PuzzleSvc.getPuzzleText()
+  console.log(pText)
+  $http.get('api/board/' + pText).
+  success(function(data, status, headers, config) {
+    $scope.puzzle = data.puzzle;
+    $scope.pAnswer = data.pAnswer;
+    $scope.consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
+    $scope.vowels = ['a', 'e', 'i', 'o', 'u']
+  });
   $scope.makingGuess = function(guess) {
     console.log(guess)
     $http.get('api/guess/' + guess).
@@ -30,9 +43,9 @@ wof.controller('BoardController', function($scope, $http, $location) {
             rowNumber = data.hits[i][0]
             colNumber = data.hits[i][1]
 //            curCoord = 
-            console.log($scope.puzzle['row' + rowNumber][colNumber])
-            $scope.puzzle['row' + rowNumber][colNumber] = guess
-            console.log($scope.puzzle['row' + rowNumber][colNumber])
+            console.log($scope.puzzle[rowNumber][colNumber])
+            $scope.puzzle[rowNumber][colNumber] = 1 
+            console.log($scope.puzzle[rowNumber][colNumber])
           }
           console.log($scope.puzzle)
         } else {
@@ -41,3 +54,20 @@ wof.controller('BoardController', function($scope, $http, $location) {
       });
     };
 });
+
+wof.controller('BoardController', function($scope, $http, $location) {
+  console.log($scope)
+});
+
+wof.factory('PuzzleSvc', function() {
+  var pText = ''
+  return {
+    getPuzzleText: function() {
+      return pText
+    },
+    setPuzzleText: function(str) {
+      pText = str
+    }
+  }
+});
+

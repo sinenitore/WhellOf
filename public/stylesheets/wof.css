@@ -39,3 +39,16 @@
   font-size: 400%;
   line-height: 1.5em;
 }
+
+.fader.ng-hide-add, .fader.ng-hide-remove {
+  -webkit-transition:0.5s linear all;
+  /*-moz-transition:0.5s linear all;*/
+  /*-o-transition:0.5s linear all;*/
+  transition:0.5s linear all;
+  display:block!important;
+  opacity:1;
+}
+
+.fader.ng-hide {
+  opacity:0;
+}

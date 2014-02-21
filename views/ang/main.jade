@@ -1,14 +1,10 @@
 div.col-md-12.gameboard
-  div.game-row(ng-repeat="row in puzzle")
-    div(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'==='0') ? 'game-block game-block-blank' : 'game-block'")
-      p.game-letter {{ row[$index] }}
-      //console.log({{$index}})
-div.row
-  div.col-md-10.col-md-offset-1
-    div.row
-      div.col-md-1(ng-repeat="opt in alphabet")
-        div.checkbox
-          label
-            input(type="checkbox" ng-value="opt" ng-click="makingGuess(opt)")
-            | {{opt}}
+  div.game-row
+    div.col-md-8.col-md-offset-2
+      div.form-group
+        label(for="txtPuzzle") Puzzle Text
+        input.form-control#txtPuzzle(type="text" placeholder="Enter Puzzle Text" ng-model="puzzleText")
+    div.form-group
+      div.col-md-8.col-md-offset-2
+        a.btn.btn-primary#aPuzzleText(href="" ng-click="puzzleTextSubmit(puzzleText)") Create Puzzle
 

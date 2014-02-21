@@ -5,23 +5,26 @@ module.exports.build_puzzle_matrix = function(str){
   } else {
     console.log("LineLength appears to be defined.")
   }
+  console.log("-- Line Length :" + lineLength)
   function build_rows(pArray){
-    pz = {row0: ''}
+    pz = new Object()
     new_row = true
     var row_count = 0
     for (var i = 0; i < pArray.length; i++){
       newArray = pArray[i].split("")
-      if (pz['row' + row_count].length + newArray.length + 1 > lineLength) {
-        row_count++
-        new_row = true
+      if (new_row === false){
+        if (pz[row_count].length + newArray.length + 1 > lineLength) {
+          row_count++
+          new_row = true
+        }
       }
       console.log('New Row: ' + new_row)
       if (new_row === true){
-        pz['row' + row_count] = newArray
+        pz[row_count] = newArray
         new_row = false
       } else {
-        pz['row' + row_count].push(' ')
-        pz['row' + row_count] = pz['row' + row_count].concat(newArray)
+        pz[row_count].push(' ')
+        pz[row_count] = pz[row_count].concat(newArray)
       }
     }
     console.log(pz)
@@ -62,12 +65,12 @@ module.exports.build_board_matrix = function(pMatrix){
   var row_count = 0
   bMatrix = new Object()
   for (row in pMatrix) {
-    bMatrix['row' + row_count] = ''
+    bMatrix[row_count] =[] 
     for (var i = 0; i < pMatrix[row].length; i++){
       if (pMatrix[row][i] === ' '){
-        bMatrix['row' + row_count] += '0'
+        bMatrix[row_count].push(0)
       } else {
-        bMatrix['row' + row_count] += '1'
+        bMatrix[row_count].push(0)
       }
     }
     row_count++

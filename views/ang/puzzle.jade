@@ -1,0 +1,23 @@
+div.col-md-12.gameboard
+  div.game-row(ng-repeat="row in pAnswer")
+    div(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'==' ') ? 'game-block game-block-blank' : 'game-block'")
+      //p.game-letter(ng-hide="puzzle[$parent.$index][$index]") {{ ch }}
+      p.game-letter.fader(ng-show="puzzle[$parent.$index][$index]") {{ ch }}
+div.row
+  div.col-md-10.col-md-offset-1
+    div.row
+      div.col-md-8
+        div.row
+          div.col-md-1(ng-repeat="opt in consonants")
+            div.radio
+              label
+                input(type="radio" ng-value="opt" ng-click="makingGuess(opt)")
+                | {{opt}}
+      div.col-md-4
+        div.row
+          div.col-md-1(ng-repeat="v in vowels")
+            div.radio
+              label
+                input(type="radio" ng-value="v" ng-click="makingGuess(v)")
+                | {{v}}
+

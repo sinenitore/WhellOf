@@ -1,5 +1,14 @@
 div.col-md-12.gameboard
   div.game-row(ng-repeat="row in puzzle")
-    div.game-block(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'===' ') ? 'game-block-blank' : ''")
-      p.game-letter{{ch}}
+    div(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'==='0') ? 'game-block game-block-blank' : 'game-block'")
+      p.game-letter {{ row[$index] }}
+      //console.log({{$index}})
+div.row
+  div.col-md-10.col-md-offset-1
+    div.row
+      div.col-md-1(ng-repeat="opt in alphabet")
+        div.checkbox
+          label
+            input(type="checkbox" ng-value="opt" ng-click="makingGuess(opt)")
+            | {{opt}}
 

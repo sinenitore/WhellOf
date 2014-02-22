@@ -1,6 +1,6 @@
 div.col-md-12.gameboard
   div.game-row(ng-repeat="row in pAnswer")
-    div(ng-repeat="ch in row track by $index" ng-class="('{{ch}}'==' ') ? 'game-block game-block-blank' : 'game-block'")
+    div(ng-repeat="ch in row track by $index" ng-class="(ch==' ') ? 'game-block game-block-blank' : 'game-block'")
       //p.game-letter(ng-hide="puzzle[$parent.$index][$index]") {{ ch }}
       p.game-letter.fader(ng-show="puzzle[$parent.$index][$index]") {{ ch }}
 div.row
@@ -20,4 +20,6 @@ div.row
               label
                 input(type="radio" ng-value="v" ng-click="makingGuess(v)")
                 | {{v}}
-
+    div.row
+      div.col-md-2
+        a.btn.btn-primary#btnGiveUp(href='' ng-click="pReveal()") I Give Up

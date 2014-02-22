@@ -23,7 +23,7 @@ module.exports.build_puzzle_matrix = function(str){
         pz[row_count] = newArray
         new_row = false
       } else {
-        pz[row_count].push(' ')
+        pz[row_count].push(" ")
         pz[row_count] = pz[row_count].concat(newArray)
       }
     }
@@ -37,15 +37,15 @@ module.exports.build_puzzle_matrix = function(str){
       if (reqPadding > 0){
         symPad = Math.floor(reqPadding/2)
         backPad = reqPadding % 2
-      }
-      padArray = new Array()
-      for (j = 0; j < symPad; j++){
-        padArray.push(' ')
-      }
-      pMatrix[row] = padArray.concat(pMatrix[row])
-      pMatrix[row] = pMatrix[row].concat(padArray)
-      if (backPad == 1){
-        pMatrix[row] = pMatrix[row].concat([' '])
+        padArray = new Array()
+        for (j = 0; j < symPad; j++){
+          padArray.push(" ")
+        }
+        pMatrix[row] = padArray.concat(pMatrix[row])
+        pMatrix[row] = pMatrix[row].concat(padArray)
+        if (backPad == 1){
+          pMatrix[row] = pMatrix[row].concat([' '])
+        }
       }
     }
     console.log(pMatrix)
@@ -53,7 +53,7 @@ module.exports.build_puzzle_matrix = function(str){
   }
   console.log(str)
   str = str.trim()
-  var puzzle = build_rows(str.split(' '))
+  var puzzle = build_rows(str.split(" "))
   console.log(puzzle)
   paddedPuzzle = pad_rows(puzzle)
   console.log(paddedPuzzle)
@@ -67,8 +67,8 @@ module.exports.build_board_matrix = function(pMatrix){
   for (row in pMatrix) {
     bMatrix[row_count] =[] 
     for (var i = 0; i < pMatrix[row].length; i++){
-      if (pMatrix[row][i] === ' '){
-        bMatrix[row_count].push(0)
+      if (",-.?!-';".indexOf(pMatrix[row][i]) > -1){
+        bMatrix[row_count].push(1)
       } else {
         bMatrix[row_count].push(0)
       }

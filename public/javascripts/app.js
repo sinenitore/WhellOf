@@ -53,6 +53,13 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc)
         }
       });
     };
+  $scope.pReveal = function(){
+    for (row in $scope.puzzle) {
+      for (i = 0; i < $scope.puzzle[row].length; i++){
+        $scope.puzzle[row][i] = 1
+      }
+    }
+  }
 });
 
 wof.controller('BoardController', function($scope, $http, $location) {

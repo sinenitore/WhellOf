@@ -11,6 +11,7 @@ exports.board = function(req, res){
   //pMatrix = puzzle.build_puzzle_matrix(pText);
   //bMatrix = puzzle.build_board_matrix(pMatrix);
   puzzleText = req.params.puzzleText
+  puzzleText = puzzleText.replace(/'/g, "\'")
   console.log(puzzleText)
   pMatrix = puzzle.build_puzzle_matrix(puzzleText)
   bMatrix = puzzle.build_board_matrix(pMatrix)

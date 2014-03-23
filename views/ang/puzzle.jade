@@ -23,3 +23,29 @@ div.row
     div.row
       div.col-md-2
         a.btn.btn-primary#btnGiveUp(href='' ng-click="pReveal()") I Give Up
+    div.form-horizontal(role="form")
+      div.form-group
+        label.col-md-2(for="txtSpinVal")
+          | Spin Value
+        div.col-md-6
+          input.form-control#txtSpinVal(type="text" ng-model="spinVal")
+    div.row
+      div.col-md-12
+        table.table
+         thead
+           tr
+             th
+               Red Team
+             th
+               Green Team
+             th
+               Blue Team
+          tbody
+            tr
+              td
+                {{red_score}}
+              td
+                {{green_score}}
+              td
+                {{blue_team}}
+       

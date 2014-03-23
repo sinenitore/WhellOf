@@ -28,11 +28,11 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc)
   var pText = PuzzleSvc.getPuzzleText()
   console.log(pText)
   $http.get('api/board/' + pText).
-  success(function(data, status, headers, config) {
-    $scope.puzzle = data.puzzle;
-    $scope.pAnswer = data.pAnswer;
-    $scope.consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
-    $scope.vowels = ['a', 'e', 'i', 'o', 'u']
+    success(function(data, status, headers, config) {
+      $scope.puzzle = data.puzzle;
+      $scope.pAnswer = data.pAnswer;
+      $scope.consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
+      $scope.vowels = ['a', 'e', 'i', 'o', 'u']
   });
   $scope.makingGuess = function(guess) {
     console.log(guess)

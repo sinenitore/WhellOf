@@ -35,17 +35,16 @@ div.row
          thead
            tr
              th
-               Red Team
+               a.btn.btn-danger#btnRedTeam(href='') Red Team
              th
-               Green Team
+               a.btn.btn-warning#btnYellowTeam(href='') Yellow Team
              th
-               Blue Team
+               a.btn.btn-primary#btnBlueTeam(href='') Blue Team
           tbody
             tr
               td
-                {{red_score}}
+                {{Puzzle.scoreRed}}
               td
-                {{green_score}}
+                {{Puzzle.scoreYellow}}
               td
-                {{blue_team}}
-       
+                {{Puzzle.scoreBlue}}

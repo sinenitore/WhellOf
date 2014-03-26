@@ -13,6 +13,24 @@ var wof = angular.module('wof', ['ngRoute', 'ngAnimate']).config(function($route
     });
 });
 
+wof.factory('Puzzle', function($rootScope, $http) {
+  var scores = {'Red': 0,
+                'Blue': 0,
+                'Yellow': 0}
+
+  function add(team, val) {
+    scores[team] += val
+  }
+
+  function get(team) {
+    return scores[team]
+  }
+
+  return {
+    add: add,
+    get: get
+  };
+};
 
 wof.controller('MainController', function($scope, $location, PuzzleSvc) {
   $scope.puzzleTextSubmit = function(str) {
@@ -39,6 +57,7 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc)
     $http.get('api/guess/' + guess).
       success(function(data, status, headers, config) {
         if (data.match === true){
+          nHits = data.hits.length;
           for (i = 0; i < data.hits.length; i++) {
             rowNumber = data.hits[i][0]
             colNumber = data.hits[i][1]
@@ -47,12 +66,12 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc)
             $scope.puzzle[rowNumber][colNumber] = 1 
             console.log($scope.puzzle[rowNumber][colNumber])
           }
+        }
           console.log($scope.puzzle)
         } else {
           //hold
         }
       });
-    };
   $scope.pReveal = function(){
     for (row in $scope.puzzle) {
       for (i = 0; i < $scope.puzzle[row].length; i++){

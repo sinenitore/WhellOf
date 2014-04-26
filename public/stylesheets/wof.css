@@ -40,6 +40,25 @@
   line-height: 1.5em;
 }
 
+.letter-pick {
+  vertical-align: middle;
+#  font-size: 130%;
+#  line-height: 1.5em;
+#  border: solid;
+#  text-align: center;
+#  background: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.letter-picked {
+  background: #6a6a6a;
+}
+
+.letter-radio {
+  visibility: hidden;
+}
+
 .fader.ng-hide-add, .fader.ng-hide-remove {
   -webkit-transition:0.5s linear all;
   /*-moz-transition:0.5s linear all;*/
@@ -51,4 +70,13 @@
 
 .fader.ng-hide {
   opacity:0;
+}
+
+.row-spacer {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-text-bold {
+  font-weight: bold;
 }

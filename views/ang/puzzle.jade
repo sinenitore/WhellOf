@@ -1,50 +1,89 @@
 div.col-md-12.gameboard
   div.game-row(ng-repeat="row in pAnswer")
     div(ng-repeat="ch in row track by $index" ng-class="(ch==' ') ? 'game-block game-block-blank' : 'game-block'")
-      //p.game-letter(ng-hide="puzzle[$parent.$index][$index]") {{ ch }}
       p.game-letter.fader(ng-show="puzzle[$parent.$index][$index]") {{ ch }}
 div.row
   div.col-md-10.col-md-offset-1
     div.row
-      div.col-md-8
-        div.row
-          div.col-md-1(ng-repeat="opt in consonants")
-            div.radio
-              label
-                input(type="radio" ng-value="opt" ng-click="makingGuess(opt)")
-                | {{opt}}
-      div.col-md-4
-        div.row
-          div.col-md-1(ng-repeat="v in vowels")
-            div.radio
-              label
-                input(type="radio" ng-value="v" ng-click="makingGuess(v)")
-                | {{v}}
-    div.row
-      div.col-md-2
-        a.btn.btn-primary#btnGiveUp(href='' ng-click="pReveal()") I Give Up
-    div.form-horizontal(role="form")
-      div.form-group
-        label.col-md-2(for="txtSpinVal")
-          | Spin Value
-        div.col-md-6
-          input.form-control#txtSpinVal(type="text" ng-model="spinVal")
+      div.col-md-12
+        h4
+          | Team:
     div.row
       div.col-md-12
-        table.table
+        div.row
+          div.col-md-4.letter-pick
+            button.btn.btn-danger.btn-block(type="button" btn-checkbox btn-checkbox-true="'Red'" ng-model="formData.teamVal") 
+              strong
+                | Red
+          div.col-md-4.letter-pick
+            button.btn.btn-warning.btn-block(type="button" btn-checkbox btn-checkbox-true="'Yellow'" ng-model="formData.teamVal") 
+              strong
+                | Yellow
+          div.col-md-4.letter-pick
+            button.btn.btn-primary.btn-block(type="button" btn-checkbox btn-checkbox-true="'Blue'" ng-model="formData.teamVal") 
+              strong
+                | Blue
+    div.row
+      div.col-md-12
+        h4
+          | Spin Value:
+    div.row
+      div.col-md-12
+        div.row
+          div.col-md-2.letter-pick(ng-repeat="spinValue in spinValues")
+            button.btn.btn-block(type="button" ng-model="formData.spinVal" btn-checkbox btn-checkbox-true="'{{ spinValue }}'" btn-checkbox-false="false" ng-class="spinValue > 0 ? 'btn-success': 'btn-danger'")
+              strong
+                | {{ spinValue }}
+    div.row
+      div.col-md-12
+        h4
+          | Letters:
+    div.row
+      div.col-md-12
+        div.row
+            div.col-md-1.letter-pick(ng-repeat="letter in letters")
+              button.btn.btn-primary.btn-block(type="button" ng-model="formData.guessLetter" btn-checkbox btn-checkbox-true="'{{ letter }}'" btn-checkbox-false="false" ng-disabled="lettersGuessed[letter]" ng-class="{active: lettersGuessed[letter], 'btn-danger': lettersWrong[letter]}")
+                strong
+                  | {{ letter }}
+    div.row.row-spacer
+    div.row
+      div.col-md-6
+        a.btn.btn-primary.btn-block#btnGuess(href='' ng-click="makingGuess(formData.teamVal, formData.guessLetter, formData.spinVal)")
+          strong
+            | Guess
+      div.col-md-6
+        a.btn.btn-success.btn-block#btnGiveUp(href='' ng-click="pReveal()") 
+          strong
+            | Reveal!
+    div.row.row-spacer
+    div.row
+      div.col-md-12
+        table.table.table-bordered
          thead
            tr
-             th
-               a.btn.btn-danger#btnRedTeam(href='') Red Team
-             th
-               a.btn.btn-warning#btnYellowTeam(href='') Yellow Team
-             th
-               a.btn.btn-primary#btnBlueTeam(href='') Blue Team
+             th.bg-danger
+               | Red Team
+             th.bg-warning
+               | Yellow Team
+             th.bg-primary
+               | Blue Team
           tbody
             tr
               td
-                {{Puzzle.scoreRed}}
+                {{scores.Red}}
               td
-                {{Puzzle.scoreYellow}}
+                {{scores.Yellow}}
               td
-                {{Puzzle.scoreBlue}}
+                {{scores.Blue}}
+    //- div.row
+    //-   div.col-md-10
+    //-     pre
+    //-       {{formData}}
+    //- div.row
+    //-   div.col-md-5
+    //-     pre
+    //-       {{lettersGuessed}}
+    //- div.row
+    //-   div.col-md-5
+    //-     pre
+    //-       {{lettersWrong}}

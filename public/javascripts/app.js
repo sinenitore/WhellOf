@@ -22,8 +22,13 @@ wof.factory('PuzzleScore', function($rootScope, $http) {
     scores[team] += val
   }
 
+  function set(team, val) {
+    scores[team] = val
+  }
+
   return {
     add: add,
+    set: set,
     scores: scores
   };
 });
@@ -61,7 +66,7 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc,
       $scope.puzzle = data.puzzle;
       $scope.pAnswer = data.pAnswer;
       $scope.letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-      $scope.spinValues = [-100, 100, 200, 300, 400, 500, 600, 700]
+      $scope.spinValues = [-100, 100, 200, 300, 400, 500, 600, 700, 'Bankrupt']
   });
   // Setup guess form variable
   $scope.formData = {}
@@ -95,23 +100,28 @@ wof.controller('PuzzleController', function($scope, $http, $location, PuzzleSvc,
     console.log('Team = ' + team)
     console.log('Guess = ' + guess)
     console.log('spinValue = ' + spinValue)
-    $http.get('api/guess/' + guess).
-      success(function(data, status, headers, config) {
-		letterStatus.markGuessed(guess)
-        if (data.match === true){
-          nHits = data.hits.length;
-          cScore = nHits * parseInt(spinValue)
-          puzzleScores.add(team, cScore)
-          for (i = 0; i < data.hits.length; i++) {
-            rowNumber = data.hits[i][0]
-            colNumber = data.hits[i][1]
-            $scope.puzzle[rowNumber][colNumber] = 1 
+    if (spinValue === 'Bankrupt') {
+      console.log('Oh no, Bankrupt!')
+      puzzleScores.set(team, 0)
+    } else {
+      $http.get('api/guess/' + guess).
+        success(function(data, status, headers, config) {
+    		  letterStatus.markGuessed(guess)
+          if (data.match === true){
+            nHits = data.hits.length;
+            cScore = nHits * parseInt(spinValue)
+            puzzleScores.add(team, cScore)
+            for (i = 0; i < data.hits.length; i++) {
+              rowNumber = data.hits[i][0]
+              colNumber = data.hits[i][1]
+              $scope.puzzle[rowNumber][colNumber] = 1 
+            }
+          } else {
+      		  letterStatus.markWrong(guess)
+            //hold
           }
-        } else {
-    		  letterStatus.markWrong(guess)
-          //hold
-        }
-      });
+        });
+    }
   }
   
   // Reveal function toggles visibility of "hide" overlay blocks
